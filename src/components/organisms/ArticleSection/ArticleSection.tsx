@@ -15,18 +15,20 @@ export const ArticleSection = ({
 }: {
   selectedUser: User | null;
 }): JSX.Element => {
-  // i used this to filter articles based on user subscriptions
+  // Filter articles based on user subscriptions or include all articles if no user is selected
   const filteredArticles = selectedUser
     ? NEWSLETTER_ITEMS.flatMap((group) =>
-        group.filter((article) =>
-          article.subscriptions.some((sub) =>
-            selectedUser.subscriptions.includes(sub)
-          )
+        group.filter(
+          (article) =>
+            article.subscriptions.length === 0 ||
+            article.subscriptions.some((sub) =>
+              selectedUser.subscriptions.includes(sub)
+            )
         )
       )
     : [];
 
-  //I used this to group articles by site
+  // Group articles by site
   const articlesBySite: Record<string, Article[]> = {};
   filteredArticles.forEach((article) => {
     if (!articlesBySite[article.site]) {

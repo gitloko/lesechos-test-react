@@ -14,12 +14,11 @@ export const ArticleCard = ({
   description,
   subscriptions,
 }: ArticleCardProps): JSX.Element => {
-  const buttonVariant = subscriptions.every((sub) => sub === "RIGHT_1")
-    ? "primary"
-    : "secondary";
-  const buttonText = subscriptions.every((sub) => sub === "RIGHT_1")
-    ? "S’inscrire"
-    : "S'abonner";
+  const hasSubscriptionRights = subscriptions.some(
+    (sub) => sub === "RIGHT_1" || sub === "RIGHT_2"
+  );
+  const buttonVariant = hasSubscriptionRights ? "primary" : "secondary";
+  const buttonText = hasSubscriptionRights ? "S'inscrire" : "S'abonner";
 
   return (
     <ArticleCardContainer>
